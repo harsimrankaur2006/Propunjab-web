@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PropPunjab</title>
+  <link rel="stylesheet" href="homestyle.css">
+  <script src="homepage.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <h2>PropPunjab</h2>
+    <ul>
+      <li>Home</li>
+      <li>Buy</li>
+      <li>Rent</li>
+      <li>Sell</li>
+    </ul>
+    <a href="login.html" class="login-btn"></a>
+
+    <a href="login.html">
+      <button type="button" id="search-section">Login</button>
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Find Verified Properties Across Punjab</h1>
+      <p>Compare listings from multiple brokers with full legal verification</p>
+
+      <div class="search-bar">
+        <input type="text" id="search-location" placeholder="Location">
+        <input type="text" id="search-type" placeholder="Property Type">
+        <input type="number" id="search-budget" placeholder="Max Budget">
+        <button id="search-btn">Search</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEARCH RESULTS -->
+  <section id="results-section" style="padding: 50px 0; display: none; background: #f8fafc;">
+    <div class="container">
+      <h2 style="font-size: 28px; margin-bottom: 20px;">Search Results</h2>
+      <div id="search-results-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+        <!-- Dynamic properties will load here -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section">
+    <div class="container">
+
+      <h2 class="about-title">ABOUT US</h2>
+      <p class="about-subtitle">Redefining Real Estate in Punjab</p>
+
+      <div class="about-content">
+
+        <!-- LEFT IMAGE -->
+        <div class="about-image">
+          <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6" alt="Modern House">
+        </div>
+
+        <!-- RIGHT TEXT -->
+        <div class="about-text">
+          <p>
+            We are building a smarter and safer way to buy property in Punjab. Instead of relying on a single broker,
+            our platform connects you with multiple trusted brokers across different cities, giving you more options,
+            better comparisons, and complete transparency.
+          </p>
+
+          <p>
+            Every property listed on our platform goes through a verification process to reduce fraud and ensure
+            authenticity. Our goal is simple — to make property buying easier, more reliable, and stress-free for every
+            customer.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="why-section">
+    <div class="container">
+
+      <h2>WHY CHOOSE US</h2>
+
+      <div class="why-cards">
+
+        <div class="why-card">
+          <i class="fas fa-shield-alt"></i>
+          <h3>Verified & Secure</h3>
+          <p>All properties are checked by legal experts.</p>
+        </div>
+
+        <div class="why-card">
+          <i class="fas fa-layer-group"></i>
+          <h3>More Options, Less Hassle</h3>
+          <p>Compare listings from multiple brokers.</p>
+        </div>
+
+        <div class="why-card">
+          <i class="fas fa-map-marker-alt"></i>
+          <h3>Punjab Local Experts</h3>
+          <p>Focused on your city and local market.</p>
+        </div>
+
+        <div class="why-card highlight">
+          <i class="fas fa-lock"></i>
+          <h3>Fraud Protection</h3>
+          <p>Strict verification reduces risks.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-center">
+      <a href="#search-section" class="legal-btn">Browse Properties</a>
+    </div>
+
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <div class="container">
+
+      <h2>HOW IT WORKS</h2>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="circle">🔍</div>
+          <h3>Search Properties</h3>
+          <p>Enter your location, budget, and preferences.</p>
+        </div>
+
+        <div class="step">
+          <div class="circle">🏠</div>
+          <h3>Compare Listings</h3>
+          <p>View properties from multiple trusted brokers.</p>
+        </div>
+
+        <div class="step">
+          <div class="circle">✔️</div>
+          <h3>Get Legal Verification</h3>
+          <p>Our experts verify documents before finalizing.</p>
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </section>
+
+  <!-- Explore by city -->
+  <section class="city-section">
+    <div class="container">
+      <h2>Explore by City</h2>
+      <p>Find properties in your preferred city across Punjab</p>
+
+      <div class="slider-wrapper">
+
+        <button class="nav prev">&#10094;</button>
+
+        <div class="slider">
+          <div class="city-card">
+            <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914">
+            <h3>Mohali</h3>
+          </div>
+
+          <div class="city-card">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c">
+            <h3>Ludhiana</h3>
+          </div>
+
+          <div class="city-card">
+            <img src="https://images.unsplash.com/photo-1599423300746-b62533397364">
+            <h3>Amritsar</h3>
+          </div>
+        </div>
+
+        <button class="nav next">&#10095;</button>
+      </div>
+    </div>
+
+
+    <!-- LEGAL -->
+    <section class="legal-section">
+      <div class="container legal-wrapper">
+
+        <div class="legal-text">
+          <h2>100% Verified & Legally Checked Properties</h2>
+          <p>
+            We ensure every property listed on our platform undergoes strict legal verification.
+            From ownership validation to document checks, our legal experts help protect you
+            from fraud and hidden risks.
+          </p>
+          <a href="#search-section" class="legal-btn">Explore Verified Listings</a>
+        </div>
+
+        <div class="legal-features">
+          <div class="legal-item">
+            <span>✔</span>
+            <p>Ownership verification</p>
+          </div>
+
+          <div class="legal-item">
+            <span>✔</span>
+            <p>Document authenticity check</p>
+          </div>
+
+          <div class="legal-item">
+            <span>✔</span>
+            <p>Legal support throughout the process</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonial-section">
+
+      <h2>What Our Users Say</h2>
+
+      <div class="testimonial-cards">
+
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p>Found a verified property in Mohali within days. Smooth and secure process.</p>
+
+          <div class="user">
+            <div class="avatar">A</div>
+            <span>Amanpreet, Mohali</span>
+          </div>
+        </div>
+
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p>Comparing multiple brokers saved me both time and money.</p>
+
+          <div class="user">
+            <div class="avatar">S</div>
+            <span>Simran, Ludhiana</span>
+          </div>
+        </div>
+
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p>Legal verification gave me confidence before buying.</p>
+
+          <div class="user">
+            <div class="avatar">H</div>
+            <span>Harpreet, Amritsar</span>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- BROKER CTA -->
+    <section class="broker-cta">
+      <div class="cta-content">
+        <h2>Are You a Broker? Join Our Network</h2>
+        <p>List your properties, connect with serious buyers, and grow your business across Punjab</p>
+
+        <a href="sign.html" class="sign-btn"></a>
+
+        <a href="sign.html">
+          <button class="cta-btn" type="cta-button">Register as Broker</button>
+        </a>
+
+      </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+      <div class="footer-grid">
+
+        <div>
+          <h3>Company</h3>
+          <p>About Us</p>
+          <p>Contact</p>
+        </div>
+
+        <div>
+          <h3>Services</h3>
+          <p>Buy</p>
+          <p>Rent</p>
+          <p>Sell</p>
+        </div>
+
+        <div>
+          <h3>Cities</h3>
+          <p>Mohali</p>
+          <p>Ludhiana</p>
+          <p>Amritsar</p>
+          <p>Jalandhar</p>
+        </div>
+
+        <div>
+          <h3>Legal</h3>
+          <p>Privacy Policy</p>
+          <p>Terms & Conditions</p>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        © 2026 PropPunjab | All Rights Reserved
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script>
+      const sb = window.supabaseClient;
+
+      document.getElementById('search-btn').addEventListener('click', async () => {
+        const location = document.getElementById('search-location').value.trim().toLowerCase();
+        const type = document.getElementById('search-type').value.trim().toLowerCase();
+        const budget = document.getElementById('search-budget').value;
+
+        document.getElementById('results-section').style.display = 'block';
+        const grid = document.getElementById('search-results-grid');
+        grid.innerHTML = '<p>Loading properties...</p>';
+
+        if (!sb) {
+            grid.innerHTML = '<p>Supabase connection not found.</p>';
+            return;
+        }
+
+        let query = sb.from('properties').select('*').eq('status', 'approved');
+
+        const { data: properties, error } = await query;
+
+        if (error) {
+            grid.innerHTML = '<p>Error loading properties.</p>';
+            return;
+        }
+
+        // Client-side filtering
+        let filtered = properties;
+        if (location) {
+            filtered = filtered.filter(p => (p.city && p.city.toLowerCase().includes(location)) || (p.area && p.area.toLowerCase().includes(location)));
+        }
+        if (type) {
+            filtered = filtered.filter(p => p.type && p.type.toLowerCase().includes(type));
+        }
+        if (budget) {
+            filtered = filtered.filter(p => p.price <= Number(budget));
+        }
+
+        if (filtered.length === 0) {
+            grid.innerHTML = '<p>No properties found matching your criteria.</p>';
+            return;
+        }
+
+        grid.innerHTML = filtered.map(p => `
+          <div style="background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; transition: 0.3s; cursor: pointer;" onclick="window.location.href='property-details.html?id=${p.id}'">
+            <img src="${p.image_url || 'https://via.placeholder.com/400x250?text=No+Image'}" style="width: 100%; height: 200px; object-fit: cover;">
+            <div style="padding: 20px;">
+              <h3 style="font-size: 18px; margin-bottom: 8px;">${p.title}</h3>
+              <p style="color: #64748b; font-size: 14px; margin-bottom: 12px;"><i class="fa-solid fa-location-dot"></i> ${p.city || ''} ${p.area ? ', ' + p.area : ''}</p>
+              <div style="font-size: 20px; font-weight: 800; color: #1d4ed8; margin-bottom: 15px;">₹ ${Number(p.price).toLocaleString('en-IN')}</div>
+              <div style="display: flex; gap: 15px; font-size: 13px; color: #475569;">
+                <span><i class="fa-solid fa-bed"></i> ${p.bedrooms || 0} Beds</span>
+                <span><i class="fa-solid fa-bath"></i> ${p.bathrooms || 0} Baths</span>
+                <span><i class="fa-solid fa-vector-square"></i> ${p.size || 0} sqft</span>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      });
+    </script>
+</body>
+</html>

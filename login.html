@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PropPunjab - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #357a53;
+            --light-green: #e9f5ee;
+            --border-color: #e0e0e0;
+            --text-main: #333;
+            --text-muted: #666;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+                url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: var(--white);
+            width: 100%;
+            max-width: 440px;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        /* Header & Logo */
+        .logo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .logo-icon {
+            color: var(--primary-green);
+            font-size: 32px;
+        }
+
+        .brand-name {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-align: left;
+        }
+
+        .brand-name span {
+            display: block;
+            font-size: 10px;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        /* Input Styles */
+        .input-group {
+            position: relative;
+            margin-bottom: 18px;
+        }
+
+        .input-group i:first-child {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+
+        .input-group .toggle-pass {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #888;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 45px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary-green);
+        }
+
+        /* Utilities Row (Remember & Forgot) */
+        .utils-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 13px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        /* Custom Checkbox Styling */
+        .remember-me input {
+            accent-color: var(--primary-green);
+            width: 16px;
+            height: 16px;
+        }
+
+        .forgot-link {
+            color: #5da67d;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Buttons */
+        .btn-login {
+            width: 100%;
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 25px;
+        }
+
+        .btn-login:hover {
+            background: #2a6142;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: #888;
+            font-size: 13px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #eee;
+            margin: 0 15px;
+        }
+
+        /* Social Buttons */
+        .social-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .social-btn {
+            border: 1px solid var(--border-color);
+            background: white;
+            padding: 12px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .social-btn:hover {
+            background: #fcfcfc;
+            border-color: #ccc;
+        }
+
+        .fa-google {
+            color: #ea4335;
+        }
+
+        .fa-facebook {
+            color: #1877f2;
+        }
+
+        .signup-link {
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
+        .signup-link a {
+            color: #5da67d;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+        <div class="logo-box">
+            <i class="fa-solid fa-house-chimney logo-icon"></i>
+            <div class="brand-name">PropPunjab<span>Verified Properties. Trusted Deals.</span></div>
+        </div>
+
+        <h2>Welcome back!</h2>
+        <p class="subtitle">Login to continue to your account.</p>
+
+        <form id="login-form">
+            <div class="input-group">
+                <i class="fa-regular fa-envelope"></i>
+                <input type="email" id="login-email" placeholder="Email Address" required>
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <i class="fa-regular fa-eye toggle-pass" onclick="togglePassword()"></i>
+            </div>
+
+            <div class="utils-row">
+                <label class="remember-me">
+                    <input type="checkbox" id="remember-me-checkbox" checked> Remember me
+                </label>
+                <a href="#" class="forgot-link" id="forgot-password-link">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="btn-login">Login</button>
+        </form>
+
+        <div class="divider">or login with</div>
+
+
+        <div class="social-grid">
+            <button type="button" class="social-btn" onclick="handleSocialLogin('google')"><img
+                    src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_Logo.svg" width="16" alt="G">
+                Google</button>
+            <button type="button" class="social-btn" onclick="handleSocialLogin('facebook')"><i
+                    class="fa-brands fa-facebook"></i> Facebook</button>
+        </div>
+
+        <p class="signup-link">
+            Don't have an account? <a href="sign.html">Sign up</a>
+        </p>
+    </div>
+
+    <script>
+        function togglePassword() {
+            const passField = document.getElementById('login-password');
+            const icon = document.querySelector('.toggle-pass');
+            if (passField.type === "password") {
+                passField.type = "text";
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                passField.type = "password";
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+
+    <script src="js/auth.js"></script>
+
+</body>
+
+</html>

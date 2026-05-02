@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PropPunjab - Create Account</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #2d7a4d;
+            --light-green: #e9f5ee;
+            --border-color: #e0e0e0;
+            --text-main: #333;
+            --text-muted: #666;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background:  
+                        url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .signup-container {
+            background: var(--white);
+            width: 100%;
+            max-width: 480px;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        /* Header & Logo */
+        .logo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            color: var(--primary-green);
+            font-size: 32px;
+        }
+
+        .brand-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .brand-name span { display: block; font-size: 10px; font-weight: normal; color: var(--text-muted); }
+
+        h2 { font-size: 24px; margin-bottom: 8px; color: var(--text-main); }
+        .subtitle { color: var(--text-muted); font-size: 14px; margin-bottom: 25px; }
+
+        /* Input Styles */
+        .input-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .input-group .toggle-pass {
+            left: auto;
+            right: 15px;
+            cursor: pointer;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 40px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px var(--light-green);
+        }
+
+        /* Role Selection */
+        .role-label {
+            text-align: left;
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 20px 0 10px;
+        }
+
+        .role-selector {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .role-card {
+            flex: 1;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: left;
+        }
+
+        .role-card input { display: none; }
+
+        .role-card .radio-circle {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .role-card.active {
+            border-color: var(--primary-green);
+            background-color: #f0f9f4;
+        }
+
+        .role-card.active .radio-circle {
+            border-color: var(--primary-green);
+        }
+
+        .role-card.active .radio-circle::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .role-info h4 { font-size: 14px; margin-bottom: 2px; }
+        .role-info p { font-size: 11px; color: var(--text-muted); }
+
+        /* Terms & Button */
+        .terms {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            margin-bottom: 20px;
+            text-align: left;
+            color: var(--text-muted);
+        }
+
+        .terms a { color: var(--primary-green); text-decoration: none; font-weight: 600; }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover { background: #235d3b; }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: #ccc;
+            font-size: 12px;
+        }
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #eee;
+            margin: 0 10px;
+        }
+
+        /* Social Buttons */
+        .social-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .social-btn {
+            border: 1px solid var(--border-color);
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .social-btn:hover { background: #f9f9f9; }
+        .fa-google { color: #db4437; }
+        .fa-facebook { color: #4267B2; }
+
+        .login-link { font-size: 14px; color: var(--text-muted); }
+        .login-link a { color: var(--primary-green); text-decoration: none; font-weight: 600; }
+
+    </style>
+</head>
+<body>
+
+<div class="signup-container">
+    <div class="logo-box">
+        <i class="fa-solid fa-house-chimney logo-icon"></i>
+        <div class="brand-name">PropPunjab<span>Verified Properties. Trusted Deals.</span></div>
+    </div>
+
+    <h2>Create an account</h2>
+    <p class="subtitle">Join us to find verified properties across Punjab.</p>
+
+    <form id="signupForm">
+        <div class="input-group">
+            <i class="fa-regular fa-user"></i>
+            <input type="text" placeholder="Full Name" required>
+        </div>
+
+        <div class="input-group">
+            <i class="fa-regular fa-envelope"></i>
+            <input type="email" placeholder="Email Address" required>
+        </div>
+
+        <div class="input-group">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="pass" placeholder="Password" required>
+            <i class="fa-regular fa-eye toggle-pass" onclick="togglePassword('pass')"></i>
+        </div>
+
+        <div class="input-group">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="confirmPass" placeholder="Confirm Password" required>
+            <i class="fa-regular fa-eye toggle-pass" onclick="togglePassword('confirmPass')"></i>
+        </div>
+
+        <label class="role-label">I am signing up as</label>
+        <div class="role-selector">
+            <div class="role-card active" onclick="selectRole(this)">
+                <input type="radio" name="role" value="customer" checked>
+                <span class="radio-circle"></span>
+                <div class="role-info">
+                    <i class="fa-solid fa-user-tie" style="color:#2d7a4d; margin-bottom:5px"></i>
+                    <h4>Customer</h4>
+                    <p>I am looking to buy or rent</p>
+                </div>
+            </div>
+
+            <div class="role-card" onclick="selectRole(this)">
+                <input type="radio" name="role" value="broker">
+                <span class="radio-circle"></span>
+                <div class="role-info">
+                    <i class="fa-solid fa-briefcase" style="color:#666; margin-bottom:5px"></i>
+                    <h4>Broker</h4>
+                    <p>I want to list properties</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="terms">
+            <input type="checkbox" id="termsCheck" required checked>
+            <label for="termsCheck">I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a></label>
+        </div>
+
+        <button type="submit" class="btn-submit" id="login-form">Create Account</button>
+    </form>
+
+    <div class="divider">or sign up with</div>
+
+    <div class="social-grid">
+        <button class="social-btn"><i class="fa-brands fa-google"></i> Google</button>
+        <button class="social-btn"><i class="fa-brands fa-facebook"></i> Facebook</button>
+    </div>
+<p class="login-link">
+    Already have an account? <a href="login.html">Login</a>
+</p>
+</div>
+
+<script src="js/auth.js"></script>
+
+<script>
+    
+    // 1. Password Toggle Logic (Keep this)
+    function togglePassword(id) {
+        const input = document.getElementById(id);
+        const icon = input.nextElementSibling;
+        if (input.type === "password") {
+            input.type = "text";
+            icon.classList.replace('fa-eye', 'fa-eye-slash');
+        } else {
+            input.type = "password";
+            icon.classList.replace('fa-eye-slash', 'fa-eye');
+        }
+    }
+
+    // 2. Role Card Selection Logic (Keep this)
+    function selectRole(element) {
+        document.querySelectorAll('.role-card').forEach(card => card.classList.remove('active'));
+        element.classList.add('active');
+        element.querySelector('input[type="radio"]').checked = true;
+    }
+
+    // 3. New Supabase Signup Logic
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Check if Supabase loaded correctly
+        if (!window.supabaseClient) {
+            return alert("❌ Supabase connection not found. Check your config file!");
+        }
+
+        const supabase = window.supabaseClient;
+
+        // Grab values
+        const fullName = document.querySelector('input[placeholder="Full Name"]').value;
+        const email = document.querySelector('input[placeholder="Email Address"]').value;
+        const password = document.getElementById('pass').value;
+        const confirmPassword = document.getElementById('confirmPass').value;
+        const role = document.querySelector('input[name="role"]:checked').value;
+
+        // Frontend validation
+        if (password !== confirmPassword) {
+            return alert("❌ Passwords do not match!");
+        }
+
+        try {
+            // Send to Supabase
+            const { data, error } = await supabase.auth.signUp({
+                email: email,
+                password: password,
+                options: {
+                    data: {
+                        full_name: fullName,
+                        role: role
+                    }
+                }
+            });
+
+            // Handle Errors (Like "User already registered")
+            if (error) {
+                if (error.message.includes("already registered")) {
+                    return alert("❌ This email is already in use. Please login instead.");
+                }
+                throw error;
+            }
+
+            // SUCCESS LOGIC
+            alert(`✅ Welcome to PropPunjab, ${fullName}!`);
+
+            // Redirection based on role
+            if (role === 'broker') {
+                window.location.href = 'dashboard.html';
+            } else {
+                window.location.href = 'customer.html';
+            }
+
+        } catch (error) {
+            console.error("Signup error:", error);
+            alert("❌ Signup failed: " + error.message);
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script src="js/supabase-config.js"></script>
+
+    </body>
+</html>

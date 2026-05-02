@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PropPunjab – Customer Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root {
+      --primary: #1d4ed8;
+      --primary-dark: #1e40af;
+      --primary-light: #eff6ff;
+      --sidebar-bg: #ffffff;
+      --sidebar-text: #475569;
+      --sidebar-hover: #f1f5f9;
+      --sidebar-active-bg: #eff6ff;
+      --sidebar-active-border: #1d4ed8;
+      --bg: #f8fafc;
+      --white: #ffffff;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --sidebar-w: 255px;
+      --header-h: 64px;
+      --radius: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ========== SIDEBAR ========== */
+    .sidebar {
+      width: var(--sidebar-w);
+      height: 100vh;
+      background: var(--sidebar-bg);
+      position: fixed;
+      top: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 20px 12px;
+      z-index: 500;
+      overflow-y: auto;
+      border-right: 1px solid var(--border);
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    .sidebar-logo i {
+      color: var(--primary);
+      font-size: 22px;
+    }
+
+    .sidebar-logo span {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.5px;
+    }
+
+    .nav-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #94a3b8;
+      padding: 8px 10px 4px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: var(--sidebar-text);
+      cursor: pointer;
+      font-size: 13.5px;
+      font-weight: 500;
+      transition: all 0.2s;
+      margin-bottom: 2px;
+      text-decoration: none;
+      position: relative;
+    }
+
+    .nav-item:hover {
+      background: var(--sidebar-hover);
+      color: var(--text);
+    }
+
+    .nav-item.active {
+      background: var(--sidebar-active-bg);
+      color: var(--primary);
+      border-left: 3px solid var(--sidebar-active-border);
+      border-radius: 0 8px 8px 0;
+      font-weight: 700;
+    }
+
+    .nav-item i {
+      width: 18px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .sidebar-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 12px 8px;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding-top: 12px;
+    }
+
+    /* ========== MAIN ========== */
+    .main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    .topbar {
+      height: var(--header-h);
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      position: sticky;
+      top: 0;
+      z-index: 400;
+    }
+
+    .topbar-left h2 {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .topbar-left p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .user-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 30px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+    }
+
+    .user-chip img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .user-chip-info p {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .user-chip-info small {
+      font-size: 10px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* CONTENT */
+    .content {
+      padding: 24px 28px;
+      flex: 1;
+    }
+
+    .view {
+      display: none;
+      animation: fadeUp 0.25s ease;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(8px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 22px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .card-header h3 {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .prop-card {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--white);
+      transition: 0.3s;
+    }
+
+    .prop-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .prop-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .prop-card-body {
+      padding: 15px;
+    }
+
+    .prop-card-body h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .prop-card-body p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .prop-card-price {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .inquiry-item {
+      display: flex;
+      gap: 15px;
+      padding: 15px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .inquiry-item:last-child {
+      border-bottom: none;
+    }
+
+    .inquiry-info {
+      flex: 1;
+    }
+
+    .inquiry-info h5 {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .inquiry-info p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 50px 20px;
+      color: var(--text-muted);
+    }
+
+    .empty-state i {
+      font-size: 36px;
+      margin-bottom: 12px;
+      opacity: 0.4;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <i class="fa-solid fa-house-chimney"></i>
+      <span>PropPunjab</span>
+    </div>
+    <span class="nav-label">Customer Portal</span>
+    <div class="nav-item active" data-view="dashboard"><i class="fa-solid fa-gauge-high"></i> Dashboard</div>
+    <div class="nav-item" data-view="saved"><i class="fa-regular fa-heart"></i> Saved Properties</div>
+    <div class="nav-item" data-view="inquiries"><i class="fa-solid fa-envelope-open-text"></i> My Inquiries</div>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-divider"></div>
+      <div class="nav-item" id="logoutBtn"><i class="fa-solid fa-right-from-bracket"></i> Logout</div>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <h2 id="pageTitle">My Dashboard</h2>
+        <p id="pageSubtitle">Welcome to your property portal.</p>
+      </div>
+      <div class="topbar-right">
+        <div class="user-chip">
+          <img id="headerAvatar" src="https://ui-avatars.com/api/?name=Customer&background=1d4ed8&color=fff" alt="User">
+          <div class="user-chip-info">
+            <p id="headerName">Loading…</p><small>Customer</small>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div id="dashboard" class="view active">
+        <div class="card">
+          <div class="card-header">
+            <h3>Recent Inquiries</h3>
+          </div>
+          <div id="recentInquiries">
+            <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i>
+              <p>Loading...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SAVED PROPERTIES -->
+      <div id="saved" class="view">
+        <div style="margin-bottom:20px;">
+          <h2 style="font-size:20px;font-weight:800;">Saved Properties</h2>
+          <p style="font-size:13px;color:var(--text-muted);">Properties you have liked</p>
+        </div>
+        <div class="grid-3" id="savedGrid">
+          <div class="empty-state" style="grid-column:1/-1"><i class="fa-regular fa-heart"></i>
+            <p>You haven't saved any properties yet. Start exploring!</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- INQUIRIES -->
+      <div id="inquiries" class="view">
+        <div style="margin-bottom:20px;">
+          <h2 style="font-size:20px;font-weight:800;">My Inquiries</h2>
+          <p style="font-size:13px;color:var(--text-muted);">Messages sent to brokers</p>
+        </div>
+        <div class="card">
+          <div id="allInquiries">
+            <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i>
+              <p>Loading...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="js/supabase-config.js"></script>
+  <script>
+    const sb = window.supabaseClient;
+    let currentUser = null;
+    let myInquiries = [];
+
+    async function init() {
+      const { data: { user }, error } = await sb.auth.getUser();
+      if (error || !user) { window.location.href = 'login.html'; return; }
+      currentUser = user;
+      const name = user.user_metadata?.full_name || user.email?.split('@')[0] || 'Customer';
+      document.getElementById('headerName').textContent = name;
+      document.getElementById('headerAvatar').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=1d4ed8&color=fff&bold=true`;
+
+      await fetchInquiries();
+    }
+
+    async function fetchInquiries() {
+      const { data, error } = await sb.from('inquiries').select('*').eq('customer_id', currentUser.id).order('created_at', { ascending: false });
+      if (!error && data) {
+        myInquiries = data;
+      }
+      renderInquiries();
+    }
+
+    function renderInquiries() {
+      const rec = document.getElementById('recentInquiries');
+      const all = document.getElementById('allInquiries');
+
+      if (myInquiries.length === 0) {
+        const empty = `<div class="empty-state"><i class="fa-solid fa-envelope"></i><p>No inquiries sent yet.</p></div>`;
+        rec.innerHTML = empty;
+        all.innerHTML = empty;
+        return;
+      }
+
+      const html = myInquiries.map(i => `
+        <div class="inquiry-item">
+            <div style="width:40px;height:40px;border-radius:8px;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;"><i class="fa-solid fa-house"></i></div>
+            <div class="inquiry-info">
+                <h5>${i.property_title || 'Property Inquiry'}</h5>
+                <p>"${i.message}"</p>
+                <small style="color:var(--text-muted)">Sent on ${new Date(i.created_at).toLocaleDateString()}</small>
+            </div>
+            <div><span style="font-size:12px;font-weight:600;color:var(--primary)">Sent</span></div>
+        </div>
+      `).join('');
+
+      rec.innerHTML = myInquiries.slice(0, 3).map(i => `
+        <div class="inquiry-item">
+            <div class="inquiry-info">
+                <h5>${i.property_title || 'Property Inquiry'}</h5>
+                <p>"${i.message}"</p>
+                <small style="color:var(--text-muted)">Sent on ${new Date(i.created_at).toLocaleDateString()}</small>
+            </div>
+        </div>
+      `).join('');
+      all.innerHTML = html;
+    }
+
+    // Navigation
+    document.querySelectorAll('.nav-item[data-view]').forEach(el => {
+      el.addEventListener('click', () => {
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        document.querySelectorAll('.nav-item[data-view]').forEach(n => n.classList.remove('active'));
+        document.getElementById(el.dataset.view).classList.add('active');
+        el.classList.add('active');
+        document.getElementById('pageTitle').textContent = el.innerText;
+      });
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      if (sb) await sb.auth.signOut();
+      window.location.href = 'login.html';
+    });
+
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+
+</html>
